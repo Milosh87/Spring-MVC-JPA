@@ -24,10 +24,6 @@
 			</c:url>
 			<c:url value="/company/edit" var="edit">
 				<c:param name="id" value="${company.id}"></c:param>
-				<c:param name="name" value="${company.name}"></c:param>
-				<c:param name="address" value="${company.address}"></c:param>
-				<c:param name="number" value="${company.number}"></c:param>
-				<c:param name="cityId" value="${company.cityDto.number}"></c:param>
 			</c:url>
 				<tr>
 					<td>${company.name }</td>

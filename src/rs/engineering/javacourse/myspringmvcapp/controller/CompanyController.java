@@ -68,30 +68,28 @@ public class CompanyController {
 		return modelAndView;
 
 	}
-	@GetMapping(value="all")
+
+	@GetMapping(value = "all")
 	public ModelAndView all(ModelMap model) {
 		ModelAndView modelAndView = new ModelAndView("company/all");
 		return modelAndView;
 	}
-	
-	@GetMapping(value="remove")
-	public ModelAndView remove(ModelMap model, @RequestParam(name="id") Long id) {
+
+	@GetMapping(value = "remove")
+	public ModelAndView remove(ModelMap model, @RequestParam(name = "id") Long id) {
 		ModelAndView modelAndView = new ModelAndView("redirect:/company/all");
 		companyService.remove(id);
 		return modelAndView;
 	}
-	
-	@GetMapping(value="edit")
-	public ModelAndView edit(ModelMap model, @RequestParam(name="id") Long id,
-			@RequestParam(name="name") String name, @RequestParam(name="address") String address,
-			@RequestParam(name="number") String number, @RequestParam(name="cityId") Long cityId) {
-				ModelAndView modelAndView = new ModelAndView("company/edit");
-				CityDto cityDto = cityService.findById(cityId);
-				CompanyDto companyDto = new CompanyDto(id,name,address,number, cityDto);
+
+	@GetMapping(value = "edit")
+	public ModelAndView edit(ModelMap model, @RequestParam(name = "id") Long id) {
+		ModelAndView modelAndView = new ModelAndView("company/edit");	
+		CompanyDto companyDto =companyService.findById(id);
 		modelAndView.addObject("companyDto", companyDto);
 		return modelAndView;
 	}
-	
+
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public ModelAndView update(ModelMap model, @ModelAttribute(value = "companyDto") @Valid CompanyDto company,
 			BindingResult result) {
@@ -118,6 +116,7 @@ public class CompanyController {
 	private List<CityDto> cities() {
 		return cityService.getAll();
 	}
+
 	@ModelAttribute(value = "companies")
 	private List<CompanyDto> companies() {
 		return companyService.getAll();
